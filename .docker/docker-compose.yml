@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+
+  batch-analysis-db:
+    image: mariadb:10.4
+    restart: always
+    volumes:
+      - batch-analysis-db-data:/var/lib/mysql
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
+
+  batch-analysis-wordpress:
+    depends_on:
+      - batch-analysis-db
+    image: wordpress:5.2
+    volumes:
+      - ..:/var/www/html/wp-content/plugins/wordlift-batch-analysis:ro
+    environment:
+      WORDPRESS_DB_HOST: batch-analysis-db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_CONFIG_EXTRA: |
+        # Add support for the reverse proxy.
+        if ( isset( $$_SERVER['HTTP_X_FORWARDED_HOST'] ) ) {
+        	$$_SERVER['HTTP_HOST'] = $$_SERVER['HTTP_X_FORWARDED_HOST'];
+        }
+
+  batch-analysis-nginx:
+    depends_on:
+      - batch-analysis-wordpress
+    image: nginx:1.17
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    environment:
+      NGINX_HOST: batch-analysis-wordpress
+      NGINX_SERVER_NAME: batch-analysis.localhost
+    command: /bin/bash -c "envsubst '$$NGINX_HOST $$NGINX_HOST_UPLOADS $$NGINX_SERVER_NAME' < /etc/nginx/conf.d/wordpress.template > /etc/nginx/conf.d/wordpress.conf && nginx -g 'daemon off;'"
+
+volumes:
+  batch-analysis-db-data: {}
