@@ -1,12 +1,15 @@
 <?php
 
 use Wordlift\Batch_Analysis\Batch_Analysis_Task;
+use Wordlift\Batch_Analysis\CleanUp_Task;
 
 wp_enqueue_script( 'batch-analysis-admin-page', plugin_dir_url( dirname( __FILE__ ) ) . '/js/admin-page.js', array( 'wp-util' ), '1.0.0', true );
 wp_localize_script( 'batch-analysis-admin-page', 'wlbaBatchAnalysisSettings', array(
-	'action'      => Batch_Analysis_Task::ID,
-	'limit'       => 1,
-	'_ajax_nonce' => wp_create_nonce( Batch_Analysis_Task::ID ),
+	'batchAnalysisAction'            => Batch_Analysis_Task::ID,
+	'cleanUpAction'                  => CleanUp_Task::ID,
+	'batchAnalysisAction_ajax_nonce' => wp_create_nonce( Batch_Analysis_Task::ID ),
+	'cleanUpAction_ajax_nonce'       => wp_create_nonce( CleanUp_Task::ID ),
+	'limit'                          => 1,
 ) );
 ?>
 
@@ -80,7 +83,10 @@ wp_localize_script( 'batch-analysis-admin-page', 'wlbaBatchAnalysisSettings', ar
 		</table>
 
 		<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary"
-		                         value="<?php esc_attr_e( 'Start', 'wordlift-batch-analysis' ); ?>"></p>
+		                         value="<?php esc_attr_e( 'Start', 'wordlift-batch-analysis' ); ?>">
+			<button id="wlba-cleanup-btn"
+			        class="button action"><?php esc_html_e( 'Clean up', 'wordlift-batch-analysis' ); ?></button>
+		</p>
 
 	</form>
 

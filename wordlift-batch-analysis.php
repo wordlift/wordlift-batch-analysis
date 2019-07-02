@@ -7,7 +7,7 @@
  * Author URI:      https://wodlift.io
  * Text Domain:     wordlift-batch-analysis
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         0.2.0
  *
  * @package         Wordlift\Batch_Analysis
  */
@@ -53,5 +53,6 @@ add_action( 'init', function () {
 
 	new Admin_Page();
 	new Ajax_Adapter( Batch_Analysis_Task_Factory::create() );
+	new Ajax_Adapter( Batch_Analysis_Task_Factory::create_cleanup_task() );
 
 } );
