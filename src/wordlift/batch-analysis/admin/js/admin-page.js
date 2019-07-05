@@ -15,7 +15,8 @@
 		links,
 		includeAnnotated,
 		minOccurrences,
-		postType
+		postType,
+		localOnly
 	) {
 		// Record the last offset, for resume operations.
 		index = offset;
@@ -28,6 +29,7 @@
 				include_annotated: includeAnnotated,
 				min_occurrences: minOccurrences,
 				post_type: postType,
+				local_only: localOnly,
 				_ajax_nonce: nonce
 			})
 			.fail(function(data) {
@@ -50,13 +52,15 @@
 						links,
 						includeAnnotated,
 						minOccurrences,
-						postType
+						postType,
+						localOnly
 					);
 			});
 	};
 
 	const start = function(action, nonce) {
 		const links = form.querySelector("input[name='links']:checked").value;
+		const localOnly = form.querySelector("input[name='local_only']:checked").value;
 		const includeAnnotated = form.querySelector(
 			"input[name='include_annotated']:checked"
 		).value;
@@ -77,7 +81,8 @@
 			links,
 			includeAnnotated,
 			minOccurrences,
-			postType
+			postType,
+			localOnly
 		);
 	};
 	form.addEventListener("submit", function(e) {
