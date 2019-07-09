@@ -34,6 +34,12 @@
 			})
 			.fail(function(data) {
 				alert("An error occurred. Please retry.");
+
+				// Increase the index to skip the failing item.
+				index++;
+
+				// Display the form.
+				form.style.display = "block";
 			})
 			.done(function(data) {
 				const current = (100 * (data.index + 1)) / data.count;
@@ -60,7 +66,8 @@
 
 	const start = function(action, nonce) {
 		const links = form.querySelector("input[name='links']:checked").value;
-		const localOnly = form.querySelector("input[name='local_only']:checked").value;
+		const localOnly = form.querySelector("input[name='local_only']:checked")
+			.value;
 		const includeAnnotated = form.querySelector(
 			"input[name='include_annotated']:checked"
 		).value;
