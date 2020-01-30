@@ -21,30 +21,24 @@ class Batch_Analysis_Task extends Abstract_Task {
 	function process_item( $item ) {
 
 		$config        = Wordlift_Configuration_Service::get_instance();
-		$dataset_uri   = $config->get_dataset_uri();
 		$language_code = $config->get_language_code();
-
-		preg_match( "|^http://.*/(.+?)$|", $dataset_uri, $matches );
-		$analyzer = $matches[1];
 
 		$post = get_post( $item );
 
 		$params = array(
 			"content"            => $post->post_content,
-			"redlinkAnalyzer"    => $analyzer,
+			"contentLanguage"    => $language_code,
 			"contentType"        => "html",
-			"minimumConfidence"  => 0.85,
-			"minimumOccurrences" => $this->min_occurrences,
-			"summary"            => false,
-			"thumbnail"          => false,
-			"excludes"           => array(),
-			"datasetUri"         => $dataset_uri,
-			"localOnly"          => $this->local_only,
-			"languageCode"       => $language_code,
+			"excludes"           => array(
+				\Wordlift_Entity_Service::get_instance()
+				                        ->get_uri( $post->ID )
+			),
+			"scope"              => $this->local_only ? "local" : "all",
 			"links"              => $this->links,
+			"minimumOccurrences" => $this->min_occurrences,
 		);
 
-		$response = wp_remote_post( "https://api.wordlift.io/analysis/redlink/analysis", array(
+		$response = wp_remote_post( "https://api.wordlift.io/analysis/single/redlink/merged", array(
 			'timeout' => 60,
 			'headers' => array(
 				'Accept'        => 'text/html',
