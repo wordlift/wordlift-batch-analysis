@@ -8,7 +8,7 @@
  * @subpacakge Wordlift_Geo/includes/task
  */
 
-namespace Wordlift\Task;
+namespace Wordlift\Batch_Analysis\Task;
 
 /**
  * Define the Wordlift_Ajax_Adapter class.

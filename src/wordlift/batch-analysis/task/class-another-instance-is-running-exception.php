@@ -1,6 +1,6 @@
 <?php
 
-namespace Wordlift\Task;
+namespace Wordlift\Batch_Analysis\Task;
 
 use Exception;
 

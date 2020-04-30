@@ -4,8 +4,6 @@
 namespace Wordlift\Batch_Analysis;
 
 
-use Wordlift\Task\Task;
-
 class Batch_Analysis_Task_Factory {
 
 	/**

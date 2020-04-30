@@ -8,7 +8,7 @@
  * @subpackage Wordlift_Geo/includes/progress
  */
 
-namespace Wordlift\Task;
+namespace Wordlift\Batch_Analysis\Task;
 
 /**
  * Define the Wordlift_Ajax_Progress class.

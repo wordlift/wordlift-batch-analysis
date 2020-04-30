@@ -7,7 +7,7 @@
  * Author URI:      https://wodlift.io
  * Text Domain:     wordlift-batch-analysis
  * Domain Path:     /languages
- * Version:         0.3.0
+ * Version:         0.3.1
  *
  * @package         Wordlift\Batch_Analysis
  */
@@ -15,8 +15,7 @@
 spl_autoload_register( function ( $class_name ) {
 
 	// Bail out if these are not our classes.
-	if ( 0 !== strpos( $class_name, 'Wordlift\\Batch_Analysis' )
-	     && 0 !== strpos( $class_name, 'Wordlift\\Task' ) ) {
+	if ( 0 !== strpos( $class_name, 'Wordlift\\Batch_Analysis' ) ) {
 		return false;
 	}
 
@@ -30,7 +29,8 @@ spl_autoload_register( function ( $class_name ) {
 	$full_path = plugin_dir_path( __FILE__ ) . $path . DIRECTORY_SEPARATOR . $file;
 
 	if ( ! file_exists( $full_path ) ) {
-		echo( "Class $class_name not found at $full_path.");
+		echo( "Class $class_name not found at $full_path." );
+
 		return false;
 	}
 
@@ -42,7 +42,7 @@ spl_autoload_register( function ( $class_name ) {
 // Imports.
 use Wordlift\Batch_Analysis\Admin\Admin_Page;
 use Wordlift\Batch_Analysis\Batch_Analysis_Task_Factory;
-use Wordlift\Task\Ajax_Adapter;
+use Wordlift\Batch_Analysis\Task\Ajax_Adapter;
 
 add_action( 'init', function () {
 

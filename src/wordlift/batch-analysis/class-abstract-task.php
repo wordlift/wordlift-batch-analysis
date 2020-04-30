@@ -3,8 +3,7 @@
 
 namespace Wordlift\Batch_Analysis;
 
-use Wordlift\Task\Task;
-use Wordlift_Configuration_Service;
+use Wordlift\Batch_Analysis\Task\Task;
 
 abstract class Abstract_Task implements Task {
 

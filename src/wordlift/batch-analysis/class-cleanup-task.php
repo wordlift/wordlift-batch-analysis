@@ -4,9 +4,6 @@
 namespace Wordlift\Batch_Analysis;
 
 
-use Wordlift\Task\Task;
-use Wordlift_Configuration_Service;
-
 class CleanUp_Task extends Abstract_Task {
 
 	const ID = '_wlba_clean_up';
