@@ -25,6 +25,11 @@ class Batch_Analysis_Task extends Abstract_Task {
 
 		$post = get_post( $item );
 
+		// We don't support Block Editor.
+		if ( function_exists( 'has_blocks' ) && has_blocks( $post ) ) {
+			return;
+		}
+
 		$params = array(
 			"content"            => $post->post_content,
 			"contentLanguage"    => $language_code,
@@ -38,7 +43,7 @@ class Batch_Analysis_Task extends Abstract_Task {
 			"minimumOccurrences" => $this->min_occurrences,
 		);
 
-		$response = wp_remote_post( "https://api.wordlift.io/analysis/single/redlink/merged", array(
+		$response = wp_remote_post( apply_filters( 'wl_api_base_url', WL_CONFIG_WORDLIFT_API_URL_DEFAULT_VALUE ) . 'analysis/merge', array(
 			'timeout' => 60,
 			'headers' => array(
 				'Accept'        => 'text/html',
