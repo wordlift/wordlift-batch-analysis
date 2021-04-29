@@ -7,7 +7,7 @@
  * Author URI:      https://wordlift.io
  * Text Domain:     wordlift-batch-analysis
  * Domain Path:     /languages
- * Version:         0.3.2
+ * Version:         0.4-dev
  *
  * @package         Wordlift\Batch_Analysis
  */
