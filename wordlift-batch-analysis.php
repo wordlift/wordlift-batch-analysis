@@ -4,10 +4,10 @@
  * Plugin URI:      https://wordlift.io
  * Description:     WordLift Batch Analysis.
  * Author:          David Riccitelli <david@wordlift.io>
- * Author URI:      https://wodlift.io
+ * Author URI:      https://wordlift.io
  * Text Domain:     wordlift-batch-analysis
  * Domain Path:     /languages
- * Version:         0.3.1
+ * Version:         0.3.2
  *
  * @package         Wordlift\Batch_Analysis
  */
